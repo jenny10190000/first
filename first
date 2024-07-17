@@ -1,0 +1,8 @@
+#3.請寫⼀個python程式，輸⼊三⾓形的三邊⻑a,b,c，利⽤海⿓公式算出三⾓形⾯積A
+
+a=eval(input('a:'))
+b=eval(input('b:'))
+c=eval(input('c:'))
+s=(a+b+c)/2
+A=(s*(s-a)*(s-b)*(s-c))**0.5
+print('三⾓形⾯積A:',A)
