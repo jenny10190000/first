@@ -1,0 +1,50 @@
+#請寫一個Python函數,能讓使用者(user1、user2) 輪流輸入,實現圈圈叉叉遊戲,使用者1使用o、使用者2使用x,
+#從使用者1開始,輸入數字1~9代表9個位置,如下圖所示:
+
+def check(board, symbol):
+    win_conditions = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],  
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],  
+        [0, 4, 8], [2, 4, 6]              
+    ]
+    for condition in win_conditions:
+        if all(board[i] == symbol for i in condition):
+            return True
+    return False
+
+def print_board(board):
+    for i in range(0, 9, 3):
+        print(" ".join(board[i:i+3]))
+
+def a():
+    positions = [' '] * 9
+    symbols = ['O', 'X']
+    print_board(positions)  
+
+    for i in range(9):
+        current_symbol = symbols[i % 2]
+        m = False
+        while not m:
+            position = input(f"{'User one\'s' if current_symbol == 'O' else 'User two\'s'} turn to input now.\nSelect input position 1~9: ")
+            if not position.isdigit():
+                print("Select input position 1~9")
+                continue
+            index = int(position) - 1
+            if not 0 <= index < 9:
+                print("Select input position 1~9")
+                continue
+            if positions[index] != ' ':
+                print("The position has been selected")
+                continue
+            m = True
+        
+        positions[index] = current_symbol
+        print_board(positions)
+        
+        if check(positions, current_symbol):
+            print(f"{'User one' if current_symbol == 'O' else 'User two'} wins")
+            return
+    print("Tie")
+    exit()  
+
+a()
